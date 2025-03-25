@@ -15,7 +15,7 @@ const RestAPI = () => {
     <View>
       <Text>RestAPI</Text>
       {users.map(item => (
-        <Text style={{fontSize: 20}}>{item.name}</Text>
+        <Text style={{fontSize: 20}}>{item.email}</Text>
       ))}
     </View>
   );

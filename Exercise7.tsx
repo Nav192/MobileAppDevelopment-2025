@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import axios from 'axios';
 import UserCard1 from './components/User Card/UserCard1';
 import UserCard2 from './components/User Card/UserCard2';
@@ -20,12 +20,11 @@ const Exercise7 = () => {
   useEffect(() => {
     axios
       .get('https://reqres.in/api/users?per_page=12')
-      .then(res => setUsers(res.data.data))
-      .catch(err => console.error(err));
+      .then(res => setUsers(res.data.data));
   }, []);
 
-  const renderUserCard = (item, index) => {
-    switch (index) {
+  const renderUserCard = (item, array) => {
+    switch (array) {
       case 0:
         return <UserCard1 user={item} />;
       case 1:
@@ -54,14 +53,12 @@ const Exercise7 = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>User List</Text>
-      <FlatList
-        data={users}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item, index}) => renderUserCard(item, index)}
-      />
-    </View>
+      {users.map((item, array) => (
+        <View key={item.id}>{renderUserCard(item, array)}</View>
+      ))}
+    </ScrollView>
   );
 };
 
