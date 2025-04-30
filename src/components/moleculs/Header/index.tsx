@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import BackButton from '../../atoms/BackButton';
 
-const Header = ({title, onBackPress}) => {
+const Header = ({title, onPress}) => {
   return (
     <View style={styles.headerContainer}>
-      <BackButton onPress={onBackPress} />
+      <BackButton onPress={onPress} />
       <Text style={styles.title}>{title}</Text>
     </View>
   );

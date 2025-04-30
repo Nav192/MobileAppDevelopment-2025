@@ -3,42 +3,33 @@ import {View, TextInput, FlatList, StyleSheet, Text} from 'react-native';
 import {Search} from 'lucide-react-native';
 import ProductCard from '../../components/moleculs/ProductCard/ProductCard';
 import BottomNavigator from '../../components/moleculs/BottomNavigator/BottomNavigator';
+import {useProducts} from '../../contexts/ProductContext';
 
 const Product = ({navigation}) => {
+  const {products} = useProducts();
   const [searchQuery, setSearchQuery] = useState('');
-
-  const products = [
-    {
-      id: '1',
-      name: 'Beras Premium',
-      image: require('../../assets/produk.png'),
-    },
-    {id: '2', name: 'Beras Merah', image: require('../../assets/produk.png')},
-    {
-      id: '3',
-      name: 'Beras Organic',
-      image: require('../../assets/produk.png'),
-    },
-    {id: '4', name: 'Beras Genjot', image: require('../../assets/produk.png')},
-    {
-      id: '5',
-      name: 'Beras Pandan Wangi',
-      image: require('../../assets/produk.png'),
-    },
-    {id: '6', name: 'Beras Medium', image: require('../../assets/produk.png')},
-  ];
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+  console.log('Produk dari context:', products);
 
   const renderItem = ({item}) => (
-    <ProductCard
-      image={item.image}
-      name={item.name}
-      onPress={() => console.log('Clicked', item.name)}
-    />
+    <View style={styles.productItem}>
+      <ProductCard
+        image={item.imageUrl}
+        name={item.name}
+        price={item.price}
+        stock={item.stock}
+        onPress={() =>
+          navigation.navigate('ProductDetail', {
+            id: item.id,
+          })
+        }
+      />
+    </View>
   );
+  console.log('Filtered Products:', filteredProducts);
 
   return (
     <View style={styles.container}>
@@ -95,6 +86,11 @@ const styles = StyleSheet.create({
   productList: {
     paddingHorizontal: 10,
     paddingBottom: 60,
+  },
+  productItem: {
+    flex: 1,
+    margin: 5,
+    maxWidth: '48%',
   },
   empty: {
     flex: 1,

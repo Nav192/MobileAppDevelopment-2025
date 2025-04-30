@@ -11,14 +11,80 @@ import {AddPhoto} from '../../assets';
 import TextInput from '../../components/moleculs/TextInput';
 import Button from '../../components/atoms/Button';
 import Gap from '../../components/atoms/Gap';
+import BackButton from '../../components/atoms/BackButton';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import {getDatabase, ref, set} from 'firebase/database';
 
 const SignUp = ({navigation}) => {
   const [photo, setPhoto] = useState(AddPhoto);
+  const [photoBase64, setPhotoBase64] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const onSubmit = () => {
-    navigation.navigate('SignIn');
+    if (!email) {
+      showMessage({message: 'Email must not be empty', type: 'danger'});
+      return;
+    }
+
+    if (!password) {
+      showMessage({message: 'Password must not be empty', type: 'danger'});
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showMessage({
+        message: 'Password and Confirm Password do not match',
+        type: 'danger',
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showMessage({message: 'Invalid email format', type: 'danger'});
+      return;
+    }
+
+    const auth = getAuth();
+    const db = getDatabase();
+    console.log('Email:', `"${email}"`);
+    console.log('Password:', `"${password}"`);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+
+        set(ref(db, 'users/' + user.uid), {
+          fullName: fullName,
+          email: email,
+          password: password,
+          photo: photoBase64,
+        })
+          .then(() => {
+            showMessage({
+              message: 'Registration successful!',
+              type: 'success',
+            });
+            navigation.navigate('SignIn');
+          })
+          .catch(error => {
+            showMessage({
+              message: error.message,
+              type: 'danger',
+            });
+          });
+      })
+      .catch(error => {
+        showMessage({
+          message: error.message,
+          type: 'danger',
+        });
+      });
   };
 
   const getImage = async () => {
@@ -33,18 +99,19 @@ const SignUp = ({navigation}) => {
 
       if (result.didCancel) {
         showMessage({
-          message: 'You canceled picking a photo!',
+          message: 'Cancelled Pick a Photo',
           type: 'warning',
         });
       } else if (result.assets && result.assets.length > 0) {
-        const assets = result.assets[0];
-        const base64 = `data:${assets.type};base64,${assets.base64}`;
+        const asset = result.assets[0];
+        const base64 = `data:${asset.type};base64,${asset.base64}`;
         const source = {uri: base64};
         setPhoto(source);
+        setPhotoBase64(base64);
       }
     } catch (error) {
       showMessage({
-        message: 'Error while picking photo!',
+        message: 'Error, while picking a Photo',
         type: 'danger',
       });
     }
@@ -53,6 +120,7 @@ const SignUp = ({navigation}) => {
   return (
     <View style={styles.pageContainer}>
       <ScrollView>
+        <BackButton />
         <Header title="Sign Up" />
         <View style={styles.contentContainer}>
           <View style={styles.profileContainer}>
@@ -67,26 +135,42 @@ const SignUp = ({navigation}) => {
               </View>
             </View>
           </View>
-          <TextInput label="Full Name" placeholder="Type your full name" />
-          <Gap height={20} />
+
+          <TextInput
+            label="Full Name"
+            placeholder="Type your full name"
+            value={fullName}
+            onChangeText={setFullName}
+          />
+          <Gap height={15} />
+
           <TextInput
             label="Email Address"
             placeholder="Type your email address"
+            value={email}
+            onChangeText={setEmail}
           />
-          <Gap height={20} />
+          <Gap height={15} />
+
           <TextInput
             label="Password"
             placeholder="Type your password"
             secureTextEntry
             withIcon
+            value={password}
+            onChangeText={setPassword}
           />
-          <Gap height={20} />
+          <Gap height={15} />
+
           <TextInput
             label="Confirm Password"
             placeholder="Type again to confirm your password"
             secureTextEntry
             withIcon
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
           />
+          <Gap height={5} />
 
           <Button
             label="Continue"
@@ -108,13 +192,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#E1EEBC',
   },
   contentContainer: {
-    marginTop: 24,
+    marginTop: 25,
     flex: 1,
     paddingHorizontal: 24,
   },
   profileContainer: {
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 15,
   },
   profile: {
     alignItems: 'center',

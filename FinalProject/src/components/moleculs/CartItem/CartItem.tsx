@@ -1,47 +1,33 @@
-// src/components/molecules/CartItem.js
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useCart} from '../../../contexts/CartContext';
 
-const CartItem = ({image, name}) => {
-  const [checked, setChecked] = useState(true);
-  const [quantity, setQuantity] = useState(1);
-
-  const toggleChecked = () => setChecked(!checked);
-  const increaseQuantity = () => setQuantity(prev => prev + 1);
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
-    }
-  };
+const CartItem = ({image, name, price, id, quantity}) => {
+  const {increaseQuantity, decreaseQuantity} = useCart();
 
   return (
     <View style={styles.container}>
-      {/* Checklist */}
-      <TouchableOpacity
-        onPress={toggleChecked}
-        style={styles.checkboxContainer}>
-        <Icon
-          name={checked ? 'check-box' : 'check-box-outline-blank'}
-          size={24}
-          color="#5E9B6F"
-        />
-      </TouchableOpacity>
-
-      {/* Product Image */}
-      <Image source={image} style={styles.image} resizeMode="contain" />
-
-      {/* Product Info */}
+      <View style={styles.leftContainer}>
+        {image ? (
+          <Image
+            source={{uri: image}}
+            style={styles.image}
+            resizeMode="contain"
+          />
+        ) : (
+          <Text>No Image</Text>
+        )}
+      </View>
       <View style={styles.productInfo}>
         <Text style={styles.productName}>{name}</Text>
-
-        {/* Quantity Controls */}
+        <Text style={styles.priceText}>Rp {price.toLocaleString('id-ID')}</Text>
         <View style={styles.quantityContainer}>
-          <TouchableOpacity onPress={increaseQuantity}>
+          <TouchableOpacity onPress={() => increaseQuantity(id)}>
             <Icon name="add-box" size={30} color="lightgreen" />
           </TouchableOpacity>
           <Text style={styles.quantityText}>{quantity}</Text>
-          <TouchableOpacity onPress={decreaseQuantity}>
+          <TouchableOpacity onPress={() => decreaseQuantity(id)}>
             <Icon name="indeterminate-check-box" size={30} color="red" />
           </TouchableOpacity>
         </View>
@@ -59,22 +45,30 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: 20,
   },
-  checkboxContainer: {
+  leftContainer: {
     marginRight: 10,
   },
   image: {
     width: 60,
     height: 60,
-    marginRight: 10,
+    marginLeft: 15,
+    borderRadius: 8,
+    backgroundColor: '#eee',
   },
   productInfo: {
     flex: 1,
     justifyContent: 'center',
+    marginLeft: 15,
   },
   productName: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
+    marginBottom: 4,
+  },
+  priceText: {
+    fontSize: 14,
+    color: '#666',
     marginBottom: 8,
   },
   quantityContainer: {

@@ -1,132 +1,86 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import SplashScreen from './FinalProject/src/pages/SplashScreen';
+import SignUp from './FinalProject/src/pages/SignUp';
+import SignIn from './FinalProject/src/pages/SignIn';
+import Dashboard from './FinalProject/src/pages/Dashboard';
+import Product from './FinalProject/src/pages/Product/Product';
+import Cart from './FinalProject/src/pages/Cart';
+import ProductDetail from './FinalProject/src/pages/ProductDetail';
+import ProfilePage from './FinalProject/src/pages/Profile';
+import ProfileSettings from './FinalProject/src/pages/ProfileSettings';
+import CheckoutPage from './FinalProject/src/pages/CheckOut';
+import {CartProvider} from './FinalProject/src/contexts/CartContext';
+import {ProductProvider} from './FinalProject/src/contexts/ProductContext';
+import './FinalProject/src/config/Firebase';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import FlashMessage from 'react-native-flash-message';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    //JSX
-    <View>
-      <View style={styles.container}>
-        <Text style={styles.title}>Basic React Native</Text>
-      </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <TextInput style={styles.input} placeholder="Enter Your email" />
-        <TextInput style={styles.input} placeholder="Enter Your password" />
-        <TouchableOpacity style={styles.button} activeOpacity={0.5}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-        <View style={styles.container1}>
-          <Text style={styles.subtitle}>Core Components React Native</Text>
-        </View>
-        <View style={styles.container3}>
-          <Text style={styles.subtitle}>Mobile App Development Class</Text>
-        </View>
-        <View>
-          <Text style={styles.subTitle}>Image from local directory</Text>
-          <Image
-            style={styles.img1}
-            source={require('./assets/EpOqfO6d_400x400.png')}></Image>
-        </View>
-        <View>
-          <Text style={styles.subTitle}>Image from Public</Text>
-          <Image
-            style={styles.img1}
-            source={{
-              uri: 'https://plus.unsplash.com/premium_photo-1738857914575-3d3b2fb7064e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8',
-            }}></Image>
-        </View>
-        <View>
-          <Text style={styles.subTitle}>Image from Base64</Text>
-          <Image
-            style={styles.img1}
-            source={{
-              uri: 'https://plus.unsplash.com/premium_photo-1738857914575-3d3b2fb7064e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8',
-            }}></Image>
-        </View>
-      </ScrollView>
-    </View>
+    <ProductProvider>
+      <CartProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="SplashScreen"
+              component={SplashScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Dashboard"
+              component={Dashboard}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Product"
+              component={Product}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Cart"
+              component={Cart}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ProductDetail"
+              component={ProductDetail}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={ProfilePage}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ProfileSettings"
+              component={ProfileSettings}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Checkout"
+              component={CheckoutPage}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+          <FlashMessage position="top" />
+        </NavigationContainer>
+      </CartProvider>
+    </ProductProvider>
   );
 };
 
-//3.Export Component
 export default App;
-
-//4.Styling
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'red',
-    borderColor: 'black',
-    borderWidth: 5,
-    padding: 20,
-    margin: 20,
-    borderRadius: 20,
-  },
-  title: {
-    fontSize: 50,
-    fontWeight: '800',
-    color: 'yellow',
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 30,
-    fontWeight: '500',
-    textAlign: 'center',
-    color: 'white',
-  },
-  container1: {
-    backgroundColor: 'blue',
-    borderColor: 'black',
-    borderWidth: 5,
-    padding: 20,
-    margin: 20,
-    borderRadius: 20,
-  },
-  container3: {
-    backgroundColor: 'green',
-    borderColor: 'black',
-    borderWidth: 5,
-    padding: 20,
-    margin: 20,
-    borderRadius: 20,
-  },
-  subTitle: {
-    fontSize: 25,
-    fontWeight: '500',
-    paddingBottom: 20,
-    paddingLeft: 10,
-  },
-  img1: {
-    height: 200,
-    width: 200,
-    marginLeft: 100,
-  },
-
-  input: {
-    borderWidth: 1,
-    borderColor: 'black',
-    margin: 20,
-    padding: 20,
-    fontSize: 25,
-    borderRadius: 15,
-  },
-
-  button: {
-    backgroundColor: 'blue',
-    margin: 20,
-    padding: 20,
-    borderRadius: 15,
-  },
-
-  buttonText: {
-    color: 'white',
-    fontSize: 20,
-    textAlign: 'center',
-  },
-});

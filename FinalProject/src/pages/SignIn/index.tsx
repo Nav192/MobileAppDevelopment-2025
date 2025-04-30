@@ -1,19 +1,36 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../../components/moleculs/Header';
 import TextInput from '../../components/moleculs/TextInput';
 import Button from '../../components/atoms/Button';
 import Gap from '../../components/atoms/Gap';
 import BackButton from '../../components/atoms/BackButton';
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import {showMessage} from 'react-native-flash-message';
 
 const SignIn = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const onSubmit = () => {
-    navigation.navigate('Dashboard');
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        navigation.navigate('Dashboard', {uid: user.uid});
+      })
+      .catch(error => {
+        showMessage({
+          message: 'Incorrect Email or Password',
+          type: 'danger',
+        });
+      });
   };
 
   const onSubmitSignUp = () => {
     navigation.navigate('SignUp');
   };
+
   return (
     <View style={styles.pageContainer}>
       <View>
@@ -24,6 +41,8 @@ const SignIn = ({navigation}) => {
           <TextInput
             label="Email Address"
             placeholder="Type your email address"
+            value={email}
+            onChangeText={e => setEmail(e)}
           />
           <Gap height={16} />
           <TextInput
@@ -31,6 +50,8 @@ const SignIn = ({navigation}) => {
             placeholder="Type your password"
             secureTextEntry
             withIcon
+            value={password}
+            onChangeText={e => setPassword(e)}
           />
           <Gap height={24} />
           <Button
@@ -40,7 +61,7 @@ const SignIn = ({navigation}) => {
             onPress={onSubmit}
           />
           <Gap height={12} />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onSubmitSignUp}>
             <Text style={styles.textAccount}>Don’t Have an Account?</Text>
           </TouchableOpacity>
           <Gap height={10} />
@@ -72,8 +93,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: '#67AE6E',
     fontSize: 20,
+    textAlign: 'center',
   },
-
   Header: {
     paddingTop: 40,
   },

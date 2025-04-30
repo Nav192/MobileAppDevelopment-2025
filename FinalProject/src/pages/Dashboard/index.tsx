@@ -1,27 +1,59 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import HeaderHome from '../../components/moleculs/HeaderDashboard';
 import MenuItem from '../../components/moleculs/MenuItem/MenuItem';
 import BottomNavigator from '../../components/moleculs/BottomNavigator/BottomNavigator';
 import ProductCard from '../../components/moleculs/ProductCard/ProductCard';
+import {useProducts} from '../../contexts/ProductContext';
+import {getAuth} from 'firebase/auth';
+import {getDatabase, ref, get} from 'firebase/database';
 
 const Dashboard = ({navigation}) => {
-  const recommendedProducts = [
-    {
-      id: '1',
-      name: 'Beras Premium',
-      image: require('../../assets/produk.png'),
-    },
-    {id: '2', name: 'Beras Merah', image: require('../../assets/produk.png')},
-  ];
+  const {products} = useProducts();
+  const [userData, setUserData] = useState({
+    fullName: '',
+    email: '',
+    photo: '',
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        if (user) {
+          const db = getDatabase();
+          const userRef = ref(db, 'users/' + user.uid);
+          const snapshot = await get(userRef);
+
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setUserData({
+              fullName: data.fullName || '',
+              email: data.email || '',
+              photo: data.photo || '',
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const recommendedProducts = products.slice(0, 2);
 
   return (
     <View style={styles.page}>
       <ScrollView>
         <HeaderHome
-          name="Jane Doe"
-          email="JaneDoe@gmail.com"
-          welcome="Welcome back, Jane Doe"
+          name={userData.fullName}
+          email={userData.email}
+          photo={userData.photo}
+          welcome={`Welcome back, ${userData.fullName}`}
         />
         <View style={styles.container}>
           <View style={styles.menuContainer}>
@@ -43,9 +75,15 @@ const Dashboard = ({navigation}) => {
             {recommendedProducts.map(product => (
               <View key={product.id} style={styles.productItem}>
                 <ProductCard
-                  image={product.image}
+                  image={product.imageUrl}
                   name={product.name}
-                  onPress={() => console.log('Clicked', product.name)}
+                  price={product.price}
+                  stock={product.stock}
+                  onPress={() =>
+                    navigation.navigate('ProductDetail', {
+                      id: product.id,
+                    })
+                  }
                 />
               </View>
             ))}
@@ -66,7 +104,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: '#FFFFFF',
-    paddingBottom: 70,
+    paddingBottom: 350,
   },
   menuContainer: {
     flexDirection: 'row',
@@ -84,6 +122,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingHorizontal: 20,
+    flexWrap: 'wrap',
   },
   productItem: {
     marginBottom: 20,

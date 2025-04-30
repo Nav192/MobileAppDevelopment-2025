@@ -1,12 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {UserIcon} from 'lucide-react-native';
 
-const HeaderDasboard = ({name, email, welcome}) => {
+const HeaderDashboard = ({name, email, welcome, photo}) => {
   return (
     <View style={styles.header}>
       <View style={styles.userInfo}>
-        <UserIcon size={40} />
+        {photo ? (
+          <Image source={{uri: photo}} style={styles.profileImage} />
+        ) : (
+          <UserIcon size={40} />
+        )}
         <View style={{marginLeft: 10}}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.email}>{email}</Text>
@@ -17,7 +21,7 @@ const HeaderDasboard = ({name, email, welcome}) => {
   );
 };
 
-export default HeaderDasboard;
+export default HeaderDashboard;
 
 const styles = StyleSheet.create({
   header: {
@@ -26,6 +30,12 @@ const styles = StyleSheet.create({
   userInfo: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  profileImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#ccc',
   },
   name: {
     fontSize: 16,

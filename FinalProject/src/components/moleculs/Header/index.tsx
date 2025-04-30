@@ -12,7 +12,7 @@ const Header = ({title}) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginTop: 65,
+    marginTop: 40,
   },
   title: {
     fontFamily: 'Inder',

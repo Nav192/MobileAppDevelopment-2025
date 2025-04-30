@@ -1,8 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Logo} from '../../assets';
 
-const SplashScreen = () => {
+const SplashScreen1 = ({navigation}) => {
+  useEffect(() => {
+    setTimeout(() => navigation.replace('SignIn'), 3000);
+  }, []);
   return (
     <View style={styles.container}>
       <Logo />
@@ -11,7 +14,7 @@ const SplashScreen = () => {
   );
 };
 
-export default SplashScreen;
+export default SplashScreen1;
 
 const styles = StyleSheet.create({
   container: {

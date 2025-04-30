@@ -6,8 +6,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/Feather'; // Pastikan sudah install react-native-vector-icon
-const TextInput = ({label, placeholder, secureTextEntry, withIcon}) => {
+import Icon from 'react-native-vector-icons/Feather';
+const TextInput = ({
+  label,
+  placeholder,
+  secureTextEntry,
+  withIcon,
+  value,
+  onChangeText,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -19,6 +26,8 @@ const TextInput = ({label, placeholder, secureTextEntry, withIcon}) => {
           placeholder={placeholder}
           secureTextEntry={secureTextEntry && !isPasswordVisible}
           style={[styles.input, isFocused && styles.inputFocused]}
+          value={value}
+          onChangeText={onChangeText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
