@@ -61,12 +61,14 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   productName: {
+    fontFamily: 'Inder-Regular',
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 4,
   },
   priceText: {
+    fontFamily: 'Inder-Regular',
     fontSize: 14,
     color: '#666',
     marginBottom: 8,
@@ -76,6 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   quantityText: {
+    fontFamily: 'Inder-Regular',
     fontSize: 16,
     marginHorizontal: 8,
   },

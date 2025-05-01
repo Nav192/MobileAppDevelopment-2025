@@ -19,8 +19,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
+    fontFamily: 'Inder-Regular',
     marginTop: 8,
-    fontSize: 14,
+    fontSize: 25,
     color: '#000',
   },
 });

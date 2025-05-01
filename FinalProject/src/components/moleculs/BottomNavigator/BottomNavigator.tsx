@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
+    fontFamily: 'Inder-Regular',
     fontSize: 15,
     marginTop: 4,
     color: '#000',

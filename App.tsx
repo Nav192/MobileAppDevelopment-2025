@@ -9,6 +9,8 @@ import ProductDetail from './FinalProject/src/pages/ProductDetail';
 import ProfilePage from './FinalProject/src/pages/Profile';
 import ProfileSettings from './FinalProject/src/pages/ProfileSettings';
 import CheckoutPage from './FinalProject/src/pages/CheckOut';
+import PaymentSuccess from './FinalProject/src/pages/PaymentSuccess';
+import PaymentFailed from './FinalProject/src/pages/PaymentFailed';
 import {CartProvider} from './FinalProject/src/contexts/CartContext';
 import {ProductProvider} from './FinalProject/src/contexts/ProductContext';
 import './FinalProject/src/config/Firebase';
@@ -73,6 +75,16 @@ const App = () => {
             <Stack.Screen
               name="Checkout"
               component={CheckoutPage}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="PaymentSuccess"
+              component={PaymentSuccess}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="PaymentFailed"
+              component={PaymentFailed}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

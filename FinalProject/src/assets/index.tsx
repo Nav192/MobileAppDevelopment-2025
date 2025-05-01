@@ -1,4 +1,6 @@
 import Logo from './Logo.png';
 import AddPhoto from './AddPhoto.png';
+import Check from './Chek.jpg';
+import Failed from './Failed.png';
 
-export {Logo, AddPhoto};
+export {Logo, AddPhoto, Check, Failed};

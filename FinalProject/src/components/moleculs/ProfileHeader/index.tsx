@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
   name: {
+    fontFamily: 'Inder-Regular',
     marginTop: 10,
     fontSize: 18,
     fontWeight: 'bold',

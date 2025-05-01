@@ -131,11 +131,11 @@ const CheckoutPage = ({navigation}) => {
       clearCart();
       setModalVisible(false);
       Alert.alert('Sukses', 'Checkout berhasil!');
-      navigation.navigate('Dashboard');
+      navigation.navigate('PaymentSuccess');
     } catch (error) {
       console.error('Checkout error:', error);
       Alert.alert('Gagal', 'Terjadi kesalahan saat checkout.');
-      navigation.navigate('Dashboard');
+      navigation.navigate('PaymentFailed');
     }
   };
 
@@ -145,7 +145,7 @@ const CheckoutPage = ({navigation}) => {
     } else {
       Alert.alert('Pembayaran gagal', 'Silakan coba lagi.');
       setModalVisible(false);
-      navigation.navigate('Dashboard');
+      navigation.navigate('PaymentFailed');
     }
   };
 
@@ -253,17 +253,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sectionTitle: {
+    fontFamily: 'Inder-Regular',
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#328E6E',
   },
   label: {
+    fontFamily: 'Inder-Regular',
     fontSize: 14,
     color: '#555',
     marginTop: 5,
   },
   value: {
+    fontFamily: 'Inder-Regular',
     fontSize: 15,
     fontWeight: '500',
     marginBottom: 5,
@@ -282,6 +285,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   paymentText: {
+    fontFamily: 'Inder-Regular',
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
@@ -301,12 +305,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalTitle: {
+    fontFamily: 'Inder-Regular',
     fontSize: 16,
     marginBottom: 10,
     color: '#333',
     textAlign: 'center',
   },
   modalInput: {
+    fontFamily: 'Inder-Regular',
     width: '100%',
     borderWidth: 1,
     borderColor: '#ccc',

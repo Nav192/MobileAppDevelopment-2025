@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   emptyText: {
+    fontFamily: 'Inder-Regular',
     textAlign: 'center',
     marginTop: 20,
     fontSize: 16,
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   removeButtonText: {
+    fontFamily: 'Inder-Regular',
     color: '#fff',
     fontWeight: 'bold',
   },
@@ -164,12 +166,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   totalLabel: {
-    fontSize: 18,
+    fontFamily: 'Inder-Regular',
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
   },
   totalPrice: {
-    fontSize: 18,
+    fontFamily: 'Inder-Regular',
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#328E6E',
   },

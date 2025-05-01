@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   infoText: {
-    fontSize: 14,
+    fontFamily: 'Inder-Regular',
+    fontSize: 15,
     color: '#333',
     marginBottom: 10,
   },

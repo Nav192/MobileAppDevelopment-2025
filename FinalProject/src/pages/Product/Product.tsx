@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
   searchInput: {
+    fontFamily: 'Inder-Regular',
     flex: 1,
     fontSize: 16,
   },

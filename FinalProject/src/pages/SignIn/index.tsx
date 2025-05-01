@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   textAccount: {
+    fontFamily: 'Inder-Regular',
     marginTop: 20,
     color: '#67AE6E',
     fontSize: 20,

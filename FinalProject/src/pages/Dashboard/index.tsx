@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   sectionTitle: {
-    fontSize: 16,
+    fontFamily: 'Inder-Regular',
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#519259',
     marginHorizontal: 20,

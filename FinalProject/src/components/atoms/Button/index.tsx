@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
     backgroundColor: color,
     borderRadius: 8,
     paddingVertical: 12,
-    marginTop: 20,
+    marginTop: 15,
   }),
   label: textColor => ({
     textAlign: 'center',
-    fontFamily: 'Poppins-Medium',
-    fontSize: 14,
+    fontFamily: 'Inder-Regular',
+    fontSize: 20,
     color: textColor,
   }),
 });

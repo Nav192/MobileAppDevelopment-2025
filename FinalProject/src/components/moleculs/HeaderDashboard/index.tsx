@@ -32,22 +32,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 70,
+    height: 70,
+    borderRadius: 50,
     backgroundColor: '#ccc',
   },
   name: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Inder-Regular',
+    fontSize: 25,
   },
   email: {
-    fontSize: 14,
+    fontFamily: 'Inder-Regular',
+    fontSize: 20,
     color: '#777',
   },
   welcome: {
+    fontFamily: 'Inder-Regular',
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 20,
     color: '#519259',
   },
 });

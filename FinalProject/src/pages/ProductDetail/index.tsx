@@ -112,18 +112,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   productName: {
+    fontFamily: 'Inder-Regular',
     fontSize: 16,
     fontWeight: 'bold',
     color: '#4CAF50',
     marginBottom: 10,
   },
   priceText: {
+    fontFamily: 'Inder-Regular',
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 10,
   },
   descriptionTitle: {
+    fontFamily: 'Inder-Regular',
     fontSize: 14,
     fontWeight: 'bold',
     color: '#666',
@@ -131,6 +134,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   productDescription: {
+    fontFamily: 'Inder-Regular',
     fontSize: 14,
     color: '#555',
     marginBottom: 10,
@@ -138,6 +142,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   stockText: {
+    fontFamily: 'Inder-Regular',
     fontSize: 14,
     color: '#4CAF50',
     marginBottom: 15,
